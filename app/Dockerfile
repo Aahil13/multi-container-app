@@ -11,24 +11,13 @@ FROM node:${NODE_VERSION}-alpine
 # Use production node environment by default.
 ENV NODE_ENV production
 
-
 WORKDIR /usr/src/app
-
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.npm to speed up subsequent builds.
-# Leverage a bind mounts to package.json and package-lock.json to avoid having to copy them into
-# into this layer.
-RUN --mount=type=bind,source=app/package.json,target=app/package.json \
-    --mount=type=bind,source=app/package-lock.json,target=app/package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm install --include=dev
 
 # install nodemon for hot-reloading
 RUN npm install -g nodemon
 
 # Copy the rest of the source files into the image.
 COPY . .
-
 
 # Run the application as a non-root user.
 RUN  chown -R node /usr/src/app
