@@ -20,7 +20,7 @@ WORKDIR /usr/src/app
 # into this layer.
 RUN --mount=type=bind,source=./app/package.json,target=./app/package.json \
     --mount=type=bind,source=./app/package-lock.json,target=./app/package-lock.json \
-    --mount=type=cache,target=/root/.npm \
+    --mount=type=cache,target=/app/root/.npm \
     npm ci --include=dev
 
 # install nodemon for hot-reloading
