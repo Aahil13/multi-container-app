@@ -21,7 +21,7 @@ WORKDIR /usr/src/app
 RUN --mount=type=bind,source=app/package.json,target=app/package.json \
     --mount=type=bind,source=app/package-lock.json,target=app/package-lock.json \
     --mount=type=cache,target=/root/.npm \
-    NODE_ENV=production npm i
+    npm ci --include=dev
 
 # install nodemon for hot-reloading
 RUN npm install -g nodemon
