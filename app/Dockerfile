@@ -18,8 +18,8 @@ WORKDIR /usr/src/app
 # Leverage a cache mount to /root/.npm to speed up subsequent builds.
 # Leverage a bind mounts to package.json and package-lock.json to avoid having to copy them into
 # into this layer.
-RUN --mount=type=bind,source=./app/package.json,target=./app/package.json \
-    --mount=type=bind,source=./app/package-lock.json,target=./app/package-lock.json \
+RUN --mount=type=bind,source=app/package.json,target=app/package.json \
+    --mount=type=bind,source=app/package-lock.json,target=app/package-lock.json \
     --mount=type=cache,target=/root/.npm \
     NODE_ENV=production npm i
 
